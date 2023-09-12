@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.ikcon.ums.event.exception.BusinessException;
+import com.ikcon.ums.event.exception.ControllerException;
 import com.ikn.ums.event.service.EventService;
 
 @RestController
@@ -44,8 +47,10 @@ public class EventController {
 			}else {
 				return new ResponseEntity<Boolean>(isAllDeleted,HttpStatus.OK);
 			}
-		}catch (Exception e) {
-			return new ResponseEntity<>("Could not delete action items, please try again", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		catch (Exception e) {
+			ControllerException umsCE = new ControllerException( "1021","Something went wrong in Controller /r/n"+e.getStackTrace());
+			return new ResponseEntity<>(umsCE, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 	}
