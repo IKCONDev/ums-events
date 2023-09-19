@@ -10,18 +10,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ikcon.ums.event.exception.BusinessException;
 import com.ikcon.ums.event.exception.ControllerException;
+import com.ikcon.ums.event.exception.ErrorCodeMessages;
 import com.ikn.ums.event.service.EventService;
+
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/meetings")
+@Slf4j
 public class EventController {
 	
 	@Autowired
 	private EventService eventService;
 	
 	@GetMapping("/save")
-	public ResponseEntity<?> createMeeting(){
-		//TODO:
+	public ResponseEntity<?> createEvent(){
+		//TODO: create event
 		return null;
 	}
 	
@@ -32,8 +36,9 @@ public class EventController {
 	 */
 	@GetMapping("/delete/ac-items/{eventId}/{actionItemIds}")
 	public ResponseEntity<?> deleteActionItemsOfEvent(@PathVariable Integer eventId, @PathVariable String actionItemIds){
-		System.out.println(actionItemIds);
+		log.info("EventController.deleteActionItemsOfEvent() entered with args : eventId - "+eventId+" actionItemIds - "+actionItemIds);
 		try {
+			log.info("EventController.deleteActionItemsOfEvent() is under execution");
 			//String[] idsFromUI = actionItemIds.split(",");
 			//List<String> idsList =  Arrays.asList(idsFromUI);
 			//convert string of ids to Integer ids
@@ -43,13 +48,17 @@ public class EventController {
 			boolean isAllDeleted = eventService.removeActionItemsOfEvent(actionItemIds, eventId);
 			System.out.println(isAllDeleted);
 			if(isAllDeleted) {
+				log.info("EventController.deleteActionItemsOfEvent() exiting successfully by returning "+isAllDeleted);
 				return new ResponseEntity<Boolean>(isAllDeleted,HttpStatus.OK);
 			}else {
+				log.info("EventController.deleteActionItemsOfEvent() exiting successfully by returning "+isAllDeleted);
 				return new ResponseEntity<Boolean>(isAllDeleted,HttpStatus.OK);
 			}
 		}
 		catch (Exception e) {
-			ControllerException umsCE = new ControllerException( "1021","Something went wrong in Controller /r/n"+e.getStackTrace());
+			log.info("EventController.deleteActionItemsOfEvent() exited with exception "+e.getMessage());
+			ControllerException umsCE = new ControllerException( ErrorCodeMessages.ERR_EVENTS_CONTROLLER_EXCEPTION_CODE,
+					ErrorCodeMessages.ERR_EVENTS_CONTROLLER_EXCEPTION_MSG+" "+e.fillInStackTrace());
 			return new ResponseEntity<>(umsCE, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		

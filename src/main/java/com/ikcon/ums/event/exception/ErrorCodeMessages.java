@@ -36,7 +36,15 @@ public class ErrorCodeMessages {
 	 public static final String ERR_EMP_SERVICE_EXCEPTION_MSG = "Exception Occured in the Employee Service Layer."; 	
 
 	 public static final String ERR_EMP_EMAIL_ID_NOT_FOUND_CODE = "EMPLOYEE_EMAIL_ID_NOT_FOUND_CODE-1012";
-	 public static final String ERR_EMP_EMAIL_ID_NOT_FOUND_MSG = "Employee Email Id is not found."; 	
+	 public static final String ERR_EMP_EMAIL_ID_NOT_FOUND_MSG = "Employee Email Id is not found."; 
+	 
+	 public static final String ERR_ACTIONS_WS_REST_CLIENT_EXCEPTION_CODE = "ACTIONITEMS_MICROSERVICE_ERROR_RESPONSE-1013";
+	 public static final String ERR_ACTIONS_WS_REST_CLIENT_EXCEPTION_MSG = "Action item microservice returned a http error response";
 
-
+	 public static final String ERR_UNKNOWN_EXCEPTION_CODE = "UNKNOWN_ERROR_RESPONSE-1014";
+	 public static final String ERR_UNKNOWN_EXCEPTION_MSG = "An unknown error occured during execution";
+	 
+	 public static final String ERR_EVENTS_CONTROLLER_EXCEPTION_CODE = "EVENTS_CONTROLLER_EXCEPTION_CODE-1015";
+	 public static final String ERR_EVENTS_CONTROLLER_EXCEPTION_MSG = "An Exception occured in Events controller";
+	 
 }
